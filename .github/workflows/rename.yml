@@ -1,0 +1,25 @@
+name: Rename site file
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename file to index.html
+        run: |
+          if [ -f midnight-maddog-website.html ]; then
+            git config user.name "MidnightMaddog"
+            git config user.email "MidnightMaddog@users.noreply.github.com"
+            git mv midnight-maddog-website.html index.html
+            git commit -m "Rename midnight-maddog-website.html to index.html"
+            git push
+          else
+            echo "Source file not found"
+            exit 1
+          fi
